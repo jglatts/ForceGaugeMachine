@@ -44,8 +44,16 @@
             this.btnMove10ThouLeft = new System.Windows.Forms.Button();
             this.btnMoveQuartInchLeft = new System.Windows.Forms.Button();
             this.btnMoveHalfInchLeft = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnEndTest = new System.Windows.Forms.Button();
+            this.btnRunDeflectionTest = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtBoxDeflectionInterval = new System.Windows.Forms.TextBox();
+            this.txtBoxTotalDeflection = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -216,11 +224,80 @@
             this.btnMoveHalfInchLeft.UseVisualStyleBackColor = true;
             this.btnMoveHalfInchLeft.Click += new System.EventHandler(this.button2_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnEndTest);
+            this.groupBox3.Controls.Add(this.btnRunDeflectionTest);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.txtBoxDeflectionInterval);
+            this.groupBox3.Controls.Add(this.txtBoxTotalDeflection);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Location = new System.Drawing.Point(658, 164);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(447, 299);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Force vs Deflection Test";
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // btnEndTest
+            // 
+            this.btnEndTest.Location = new System.Drawing.Point(129, 240);
+            this.btnEndTest.Name = "btnEndTest";
+            this.btnEndTest.Size = new System.Drawing.Size(219, 34);
+            this.btnEndTest.TabIndex = 18;
+            this.btnEndTest.Text = "End Test";
+            this.btnEndTest.UseVisualStyleBackColor = true;
+            this.btnEndTest.Click += new System.EventHandler(this.btnEndTest_Click);
+            // 
+            // btnRunDeflectionTest
+            // 
+            this.btnRunDeflectionTest.Location = new System.Drawing.Point(129, 169);
+            this.btnRunDeflectionTest.Name = "btnRunDeflectionTest";
+            this.btnRunDeflectionTest.Size = new System.Drawing.Size(219, 55);
+            this.btnRunDeflectionTest.TabIndex = 17;
+            this.btnRunDeflectionTest.Text = "Start Test";
+            this.btnRunDeflectionTest.UseVisualStyleBackColor = true;
+            this.btnRunDeflectionTest.Click += new System.EventHandler(this.btnRunDeflectionTest_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(29, 102);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(155, 25);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Deflection Interval";
+            // 
+            // txtBoxDeflectionInterval
+            // 
+            this.txtBoxDeflectionInterval.Location = new System.Drawing.Point(199, 99);
+            this.txtBoxDeflectionInterval.Name = "txtBoxDeflectionInterval";
+            this.txtBoxDeflectionInterval.Size = new System.Drawing.Size(191, 31);
+            this.txtBoxDeflectionInterval.TabIndex = 2;
+            // 
+            // txtBoxTotalDeflection
+            // 
+            this.txtBoxTotalDeflection.Location = new System.Drawing.Point(199, 55);
+            this.txtBoxTotalDeflection.Name = "txtBoxTotalDeflection";
+            this.txtBoxTotalDeflection.Size = new System.Drawing.Size(191, 31);
+            this.txtBoxTotalDeflection.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(38, 58);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(134, 25);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Total Deflection";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1334, 738);
+            this.ClientSize = new System.Drawing.Size(1172, 738);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnOpenDevice);
             this.Controls.Add(this.label2);
@@ -230,6 +307,8 @@
             this.Text = "Z-Axis Connector Company";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,5 +332,12 @@
         private Button btnMoveQuartInchLeft;
         private Button btnMoveHalfInchLeft;
         private Button btnResetHome;
+        private GroupBox groupBox3;
+        private Label label4;
+        private TextBox txtBoxDeflectionInterval;
+        private TextBox txtBoxTotalDeflection;
+        private Label label3;
+        private Button btnRunDeflectionTest;
+        private Button btnEndTest;
     }
 }

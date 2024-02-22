@@ -5,17 +5,6 @@
  *  Date:      11/15/23
  *  Author:    John Glatts
  */
-using Microsoft.VisualBasic.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.AxHost;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static UC100;
 
 class MotorHelper
@@ -48,6 +37,8 @@ class MotorHelper
     private bool isBladeDown;
     private double cutLength;
     private int cutQuantity;
+    private double totalDeflection;
+    private double deflectionInterval;
     private CancellationTokenSource cancelTokenSource;
     private CancellationToken token;
 
@@ -234,7 +225,7 @@ class MotorHelper
     {
         int ret = 0;
 
-        AxisSetting xAxisSetting = getAxisSetup(0, stepXPin, dirXPin, enaXPin, xHomePin, xStepsPerUnit, true, 1, 1000.0);
+        AxisSetting xAxisSetting = getAxisSetup(0, stepXPin, dirXPin, enaXPin, xHomePin, xStepsPerUnit, true, 1.0, 1000.0);
         ret = SetAxisSetting(ref xAxisSetting);
 
         if (ret != (int)ReturnVal.UC100_OK)
@@ -243,6 +234,35 @@ class MotorHelper
         }
 
         return true;
+    }
+
+    public void runForceDeflectionTest(double totalDeflection, double deflectionInterval) 
+    {
+        if (!isConnected)
+        {
+            MessageBox.Show(helpStr, "Z-Axis Connector Company");
+            return;
+        }
+        cancelTokenSource = new CancellationTokenSource();
+        token = cancelTokenSource.Token;
+        this.totalDeflection = totalDeflection;
+        this.deflectionInterval = deflectionInterval;
+        Task task = new Task(forceDeflectionWorker, token);
+        task.Start();
+    }
+
+    private void forceDeflectionWorker() { 
+        double moves = totalDeflection / deflectionInterval;
+        Thread.Sleep(500);  // wait to begin
+        for (int i = 0; i < (int)moves; i++) {
+            if (token.IsCancellationRequested)
+            {
+                Stop();
+                return;
+            }
+            doMotorMove(deflectionInterval, false);
+            Thread.Sleep(1500); // wait for test
+        }
     }
 
     /**

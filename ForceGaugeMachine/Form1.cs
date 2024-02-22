@@ -68,5 +68,33 @@ namespace ForceGaugeMachine
         {
             motorHelper.stopMotor();
         }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEndTest_Click(object sender, EventArgs e)
+        {
+            motorHelper.stopMotor();
+        }
+
+        private void btnRunDeflectionTest_Click(object sender, EventArgs e)
+        {
+            double totalDeflection;
+            double deflectionInterval;
+
+            try 
+            {
+                totalDeflection = Double.Parse(txtBoxTotalDeflection.Text);
+                deflectionInterval = Double.Parse(txtBoxDeflectionInterval.Text);
+                motorHelper.runForceDeflectionTest(totalDeflection, deflectionInterval);
+            }
+            catch
+            {
+                MessageBox.Show("error with data!", "Z-Axis Connector Company");
+            }
+
+        }
     }
 }
