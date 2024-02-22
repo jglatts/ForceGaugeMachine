@@ -1,3 +1,16 @@
+/**
+ *  Automated Force vs Deflection Machine
+ *  
+ *  left down
+ *  right UP
+ *  
+ *  ToDo:
+ *      - implement current pos txtbox to keep track of where we are
+ *                      
+ *  Copyright: Z-Axis Connector Company
+ *  Date:      2/22/24
+ *  Author:    John Glatts
+ */
 namespace ForceGaugeMachine
 {
     public partial class Form1 : Form
@@ -9,6 +22,7 @@ namespace ForceGaugeMachine
         {
             InitializeComponent();
             motorHelper= new MotorHelper();
+            //motorHelper.setDevice();
         }
 
         private void btnOpenDevice_Click(object sender, EventArgs e)

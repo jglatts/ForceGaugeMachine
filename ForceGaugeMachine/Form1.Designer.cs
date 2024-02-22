@@ -234,7 +234,7 @@
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Location = new System.Drawing.Point(658, 164);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(447, 299);
+            this.groupBox3.Size = new System.Drawing.Size(447, 265);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Force vs Deflection Test";
@@ -242,7 +242,7 @@
             // 
             // btnEndTest
             // 
-            this.btnEndTest.Location = new System.Drawing.Point(129, 240);
+            this.btnEndTest.Location = new System.Drawing.Point(120, 210);
             this.btnEndTest.Name = "btnEndTest";
             this.btnEndTest.Size = new System.Drawing.Size(219, 34);
             this.btnEndTest.TabIndex = 18;
@@ -252,7 +252,7 @@
             // 
             // btnRunDeflectionTest
             // 
-            this.btnRunDeflectionTest.Location = new System.Drawing.Point(129, 169);
+            this.btnRunDeflectionTest.Location = new System.Drawing.Point(120, 149);
             this.btnRunDeflectionTest.Name = "btnRunDeflectionTest";
             this.btnRunDeflectionTest.Size = new System.Drawing.Size(219, 55);
             this.btnRunDeflectionTest.TabIndex = 17;
@@ -263,7 +263,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(29, 102);
+            this.label4.Location = new System.Drawing.Point(38, 99);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(155, 25);
             this.label4.TabIndex = 3;
@@ -286,7 +286,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 58);
+            this.label3.Location = new System.Drawing.Point(49, 58);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(134, 25);
             this.label3.TabIndex = 0;
