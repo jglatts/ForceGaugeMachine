@@ -10,33 +10,15 @@ using static UC100;
 class MotorHelper
 {
     private int boardID;
-    private int moveID;
     private int stepXPin;
     private int dirXPin;
     private int enaXPin;
-    private int stepYPin;
-    private int dirYPin;
-    private int enaYPin;
     private int xStepsPerUnit;
     private int xHomePin;
-    private int leftHomePin;
-    private double xPos;
-    private double yPos;
-    private double zPos;
-    private double aPos;
-    private double bPos;
-    private double cPos;
     public double speed;
     public double feedRate;
-    public double cameraOffset;
-    private int bladePin;
-    private int lockPin;
     public String helpStr;
-    public bool useCamera;
     private bool isConnected;
-    private bool isBladeDown;
-    private double cutLength;
-    private int cutQuantity;
     private double totalDeflection;
     private double deflectionInterval;
     private CancellationTokenSource cancelTokenSource;
@@ -56,27 +38,15 @@ class MotorHelper
      */
     private void setMotorVars()
     {
-        moveID = 0;
         boardID = 1;
         speed = 5.5;
         feedRate = 0.85;
         stepXPin = 2;               // prod for autocutter
         dirXPin = 3;
         enaXPin = 5;
-        bladePin = 8;               // 8 for autocutter2
-        lockPin = 13;
         xHomePin = 0;            // right limit switch
-        leftHomePin = 15;           // left limit switch
         //xStepsPerUnit = 8000;
         xStepsPerUnit = 10724;
-        xPos = 0.0;
-        yPos = 0.0;
-        zPos = 0.0;
-        aPos = 0.0;
-        bPos = 0.0;
-        cPos = 0.0;
-        cameraOffset = 0.0;
-        useCamera = false;
         isConnected = false;
     }
 
@@ -143,55 +113,6 @@ class MotorHelper
     }
 
     /**
-     *  Drive the blade up
-     */
-    public bool bladeUp()
-    {
-        if (!isConnected)
-        {
-            MessageBox.Show(helpStr, "Z-Axis Connector Company");
-            return false;
-        }
-
-        if (SetOutputBit(bladePin) != (int)ReturnVal.UC100_OK)
-        {
-            MessageBox.Show(helpStr, "Z-Axis Connector Company");
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     *  Drive the blade down
-     */
-    public bool bladeDown()
-    {
-        if (!isConnected)
-        {
-            MessageBox.Show(helpStr, "Z-Axis Connector Company");
-            return false;
-        }
-
-        /*
-        if (getPinState(lockPin))
-        {
-            MessageBox.Show("Check Locking Pins", "Z-Axis Connector Company", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            return false;
-        }
-        */
-
-        int ret = ClearOutputBit(bladePin);
-        if (ret != (int)ReturnVal.UC100_OK)
-        {
-            MessageBox.Show(helpStr, "Z-Axis Connector Company");
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      *  Open and being comms. with UC100 device
      */
     public bool setDevice()
@@ -212,7 +133,6 @@ class MotorHelper
 
         isConnected = true;
         setMotorAxis();
-        bladeUp();
 
         return ret;
     }
@@ -253,7 +173,7 @@ class MotorHelper
 
     private void forceDeflectionWorker() { 
         double moves = totalDeflection / deflectionInterval;
-        Thread.Sleep(500);  // wait to begin
+        Thread.Sleep(500); 
         for (int i = 0; i < (int)moves; i++) {
             if (token.IsCancellationRequested)
             {
@@ -323,85 +243,6 @@ class MotorHelper
         Stat s = new Stat { };
         int ret = GetStatus(ref s);
         return s.Home == true;
-    }
-
-    /**
-     *  Driver method start cut-many routine
-     */
-    public void makeCuts(int quantity, double length)
-    {
-        if (!isConnected)
-        {
-            MessageBox.Show(helpStr + "\nyoure not connected!?!", "Z-Axis Connector Company");
-            return;
-        }
-
-        cutLength = length;
-        cutQuantity = quantity;
-        startCutThread();
-    }
-
-    /**
-     *  Helper method to configure cut-many thread and cancel token
-     */
-    private void startCutThread()
-    {
-        cancelTokenSource = new CancellationTokenSource();
-        token = cancelTokenSource.Token;
-        /* Test this impl.
-        token.Register(() =>
-        {
-            Stop();
-            return;
-        });
-        */
-        Task task = new Task(doCutMove, token);
-        task.Start();
-    }
-
-    /**
-     *  Method for cut-many thread
-     *  Will make cutQuantity cuts
-     */
-    private void doCutMove()
-    {
-        for (int i = 0; i < cutQuantity; i++)
-        {
-            // is main-thread saying to stop?
-            if (token.IsCancellationRequested)
-            {
-                Stop();
-                return;
-            }
-
-            // compensate for offset, move to cut
-            if (useCamera)
-            {
-                doMotorMove(cameraOffset, false);
-                while (isMotorRunning()) ; // NOP
-            }
-
-            // first cut
-            if (!bladeDown())
-            {
-                errorLoop();
-            }
-
-            // blade up settings
-            Thread.Sleep(500);
-            bladeUp();
-            Thread.Sleep(500);
-
-            // go back if using camera
-            if (useCamera)
-            {
-                doMotorMove(cameraOffset, true);
-            }
-
-            // move to next position
-            doMotorMove(cutLength, true);
-            while (isMotorRunning()) ; // NOP
-        }
     }
 
     /**
@@ -484,31 +325,12 @@ class MotorHelper
 
     public void doMotorMove(double steps, bool dir)
     {
-        /* 
-        if (!getPinState(leftHomePin)) {
-            // need a better stop here, maybe multi-threaded
-            // could have a thread that listens for pin going low 
-            bladeUp();
-            AddLinearMoveRel(0, 1.0, 1, speed, false);
-            return;
-        }
-        */
-
         int ret = AddLinearMoveRel(0, steps, 1, speed, dir);
         if (ret != (int)ReturnVal.UC100_OK)
         {
             MessageBox.Show(helpStr, "Z-Axis Connector Company");
             return;
         }
-
-        /*
-        // need a better check, multi-threaded?
-        if (!getPinState(leftHomePin))
-        {
-            AddLinearMoveRel(0, 1.0, 1, speed, false);
-            return;
-        }
-        */
     }
 
     public void stopMotor()
