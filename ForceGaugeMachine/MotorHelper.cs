@@ -23,6 +23,7 @@ class MotorHelper
     private double deflectionInterval;
     private CancellationTokenSource cancelTokenSource;
     private CancellationToken token;
+    private ForceGaugeMachine.Form1 mainForm;
 
     /**
      *  Constructor 
@@ -156,23 +157,27 @@ class MotorHelper
         return true;
     }
 
-    public void runForceDeflectionTest(double totalDeflection, double deflectionInterval) 
+    public void runForceDeflectionTest(double totalDeflection, double deflectionInterval, ForceGaugeMachine.Form1 mainForm) 
     {
+        /*
         if (!isConnected)
         {
             MessageBox.Show(helpStr, "Z-Axis Connector Company");
             return;
         }
+        */
         cancelTokenSource = new CancellationTokenSource();
         token = cancelTokenSource.Token;
         this.totalDeflection = totalDeflection;
         this.deflectionInterval = deflectionInterval;
+        this.mainForm = mainForm;
         Task task = new Task(forceDeflectionWorker, token);
         task.Start();
     }
 
     private void forceDeflectionWorker() { 
         double moves = totalDeflection / deflectionInterval;
+        mainForm.updateCurrentPosition(0);
         Thread.Sleep(500); 
         for (int i = 0; i < (int)moves; i++) {
             if (token.IsCancellationRequested)
@@ -181,6 +186,7 @@ class MotorHelper
                 return;
             }
             doMotorMove(deflectionInterval, false);
+            mainForm.updateCurrentPosition(deflectionInterval);
             Thread.Sleep(1500); // wait for test
         }
     }
