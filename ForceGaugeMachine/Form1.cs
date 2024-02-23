@@ -26,7 +26,8 @@ namespace ForceGaugeMachine
             motorHelper = new MotorHelper();
             currentPos = 0.0;
             txtBoxCurrentPos.ReadOnly = true;
-            //motorHelper.setDevice();
+            txtBoxDelayInterval.Text = "1.5";
+            motorHelper.setTestDelayInterval(1.5);   
         }
 
         private void btnOpenDevice_Click(object sender, EventArgs e)
@@ -39,7 +40,6 @@ namespace ForceGaugeMachine
 
         public void updateCurrentPosition(double pos)
         {
-
             if (this.txtBoxCurrentPos.InvokeRequired)
             {
                 SetTextCallback d = new SetTextCallback(updateCurrentPosition);
@@ -129,20 +129,36 @@ namespace ForceGaugeMachine
 
         private void btnRunDeflectionTest_Click(object sender, EventArgs e)
         {
-            double totalDeflection;
-            double deflectionInterval;
+            double totalDeflection = 0;
+            double deflectionInterval = 0;
+            double delayInterval = 0;
 
             try 
             {
                 totalDeflection = Double.Parse(txtBoxTotalDeflection.Text);
                 deflectionInterval = Double.Parse(txtBoxDeflectionInterval.Text);
-                motorHelper.runForceDeflectionTest(totalDeflection, deflectionInterval, this);
+                delayInterval = Double.Parse(txtBoxDelayInterval.Text);
             }
             catch
             {
                 MessageBox.Show("error with data!", "Z-Axis Connector Company");
+                return;
             }
 
+            if (deflectionInterval >= totalDeflection)
+            { 
+                MessageBox.Show("error:\ndeflectionInterval >= totalDeflection!", "Z-Axis Connector Company");
+                return;
+            }
+
+            if (delayInterval <= 0)
+            {
+                MessageBox.Show("error:\ndelayInterval <= 0", "Z-Axis Connector Company");
+                return;
+            }
+
+            motorHelper.setTestDelayInterval(delayInterval);
+            motorHelper.runForceDeflectionTest(totalDeflection, deflectionInterval, this);
         }
 
         private void txtBoxDeflectionInterval_TextChanged(object sender, EventArgs e)

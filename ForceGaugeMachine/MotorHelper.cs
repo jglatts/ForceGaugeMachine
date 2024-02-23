@@ -21,6 +21,7 @@ class MotorHelper
     private bool isConnected;
     private double totalDeflection;
     private double deflectionInterval;
+    private double testDelayInterval;
     private CancellationTokenSource cancelTokenSource;
     private CancellationToken token;
     private ForceGaugeMachine.Form1 mainForm;
@@ -49,6 +50,11 @@ class MotorHelper
         //xStepsPerUnit = 8000;
         xStepsPerUnit = 10724;
         isConnected = false;
+    }
+
+    public void setTestDelayInterval(double delay)
+    {
+        testDelayInterval = delay;
     }
 
     /**
@@ -177,6 +183,8 @@ class MotorHelper
 
     private void forceDeflectionWorker() { 
         double moves = totalDeflection / deflectionInterval;
+        int delay = (int)(testDelayInterval * 1000);
+        MessageBox.Show(delay.ToString());
         mainForm.updateCurrentPosition(0);
         Thread.Sleep(500); 
         for (int i = 0; i < (int)moves; i++) {
@@ -187,7 +195,7 @@ class MotorHelper
             }
             doMotorMove(deflectionInterval, false);
             mainForm.updateCurrentPosition(deflectionInterval);
-            Thread.Sleep(1500); // wait for test
+            Thread.Sleep(delay); // wait for test
         }
     }
 
@@ -277,7 +285,6 @@ class MotorHelper
             MessageBox.Show(helpStr, "Z-Axis Connector Company");
             return false;
         }
-
         isConnected = false;
 
         return true;

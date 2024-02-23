@@ -53,6 +53,8 @@
             this.txtBoxDeflectionInterval = new System.Windows.Forms.TextBox();
             this.txtBoxTotalDeflection = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtBoxDelayInterval = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -228,6 +230,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.txtBoxDelayInterval);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.txtBoxCurrentPos);
             this.groupBox3.Controls.Add(this.btnEndTest);
@@ -238,7 +242,7 @@
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Location = new System.Drawing.Point(658, 164);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(447, 326);
+            this.groupBox3.Size = new System.Drawing.Size(447, 419);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Force vs Deflection Test";
@@ -247,7 +251,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(55, 139);
+            this.label5.Location = new System.Drawing.Point(55, 219);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(138, 25);
             this.label5.TabIndex = 20;
@@ -255,14 +259,14 @@
             // 
             // txtBoxCurrentPos
             // 
-            this.txtBoxCurrentPos.Location = new System.Drawing.Point(199, 136);
+            this.txtBoxCurrentPos.Location = new System.Drawing.Point(199, 216);
             this.txtBoxCurrentPos.Name = "txtBoxCurrentPos";
             this.txtBoxCurrentPos.Size = new System.Drawing.Size(191, 31);
             this.txtBoxCurrentPos.TabIndex = 19;
             // 
             // btnEndTest
             // 
-            this.btnEndTest.Location = new System.Drawing.Point(130, 265);
+            this.btnEndTest.Location = new System.Drawing.Point(121, 352);
             this.btnEndTest.Name = "btnEndTest";
             this.btnEndTest.Size = new System.Drawing.Size(219, 34);
             this.btnEndTest.TabIndex = 18;
@@ -272,7 +276,7 @@
             // 
             // btnRunDeflectionTest
             // 
-            this.btnRunDeflectionTest.Location = new System.Drawing.Point(130, 204);
+            this.btnRunDeflectionTest.Location = new System.Drawing.Point(121, 291);
             this.btnRunDeflectionTest.Name = "btnRunDeflectionTest";
             this.btnRunDeflectionTest.Size = new System.Drawing.Size(219, 55);
             this.btnRunDeflectionTest.TabIndex = 17;
@@ -283,7 +287,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(38, 99);
+            this.label4.Location = new System.Drawing.Point(38, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(155, 25);
             this.label4.TabIndex = 3;
@@ -291,7 +295,7 @@
             // 
             // txtBoxDeflectionInterval
             // 
-            this.txtBoxDeflectionInterval.Location = new System.Drawing.Point(199, 99);
+            this.txtBoxDeflectionInterval.Location = new System.Drawing.Point(199, 109);
             this.txtBoxDeflectionInterval.Name = "txtBoxDeflectionInterval";
             this.txtBoxDeflectionInterval.Size = new System.Drawing.Size(191, 31);
             this.txtBoxDeflectionInterval.TabIndex = 2;
@@ -312,6 +316,22 @@
             this.label3.Size = new System.Drawing.Size(134, 25);
             this.label3.TabIndex = 0;
             this.label3.Text = "Total Deflection";
+            // 
+            // txtBoxDelayInterval
+            // 
+            this.txtBoxDelayInterval.Location = new System.Drawing.Point(199, 158);
+            this.txtBoxDelayInterval.Name = "txtBoxDelayInterval";
+            this.txtBoxDelayInterval.Size = new System.Drawing.Size(191, 31);
+            this.txtBoxDelayInterval.TabIndex = 21;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(38, 164);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(143, 25);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "Delay Time (sec.)";
             // 
             // Form1
             // 
@@ -362,5 +382,7 @@
         private Button btnEndTest;
         private Label label5;
         private TextBox txtBoxCurrentPos;
+        private Label label6;
+        private TextBox txtBoxDelayInterval;
     }
 }
