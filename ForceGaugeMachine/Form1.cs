@@ -27,6 +27,7 @@ namespace ForceGaugeMachine
             currentPos = 0.0;
             txtBoxCurrentPos.ReadOnly = true;
             txtBoxDelayInterval.Text = "1.5";
+            txtBoxCurrentPos.Text = "0.000";
             motorHelper.setTestDelayInterval(1.5);   
         }
 
@@ -145,15 +146,8 @@ namespace ForceGaugeMachine
                 return;
             }
 
-            if (deflectionInterval >= totalDeflection)
-            { 
-                MessageBox.Show("error:\ndeflectionInterval >= totalDeflection!", "Z-Axis Connector Company");
-                return;
-            }
-
-            if (delayInterval <= 0)
+            if (!checkUserInput(delayInterval, deflectionInterval, totalDeflection))
             {
-                MessageBox.Show("error:\ndelayInterval <= 0", "Z-Axis Connector Company");
                 return;
             }
 
@@ -161,9 +155,30 @@ namespace ForceGaugeMachine
             motorHelper.runForceDeflectionTest(totalDeflection, deflectionInterval, this);
         }
 
+        private bool checkUserInput(double delayInterval, double deflectionInterval, double totalDeflection) {
+            if (deflectionInterval >= totalDeflection)
+            {
+                MessageBox.Show("error:\ndeflectionInterval >= totalDeflection!", "Z-Axis Connector Company");
+                return false;
+            }
+
+            if (delayInterval <= 0)
+            {
+                MessageBox.Show("error:\ndelayInterval <= 0", "Z-Axis Connector Company");
+                return false;
+            }
+
+            return true;
+        }
+
         private void txtBoxDeflectionInterval_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnResetHome_Click(object sender, EventArgs e)
+        {
+            txtBoxCurrentPos.Text = "0.000";
         }
     }
 }

@@ -184,7 +184,6 @@ class MotorHelper
     private void forceDeflectionWorker() { 
         double moves = totalDeflection / deflectionInterval;
         int delay = (int)(testDelayInterval * 1000);
-        MessageBox.Show(delay.ToString());
         mainForm.updateCurrentPosition(0);
         Thread.Sleep(500); 
         for (int i = 0; i < (int)moves; i++) {
@@ -311,7 +310,6 @@ class MotorHelper
         }
 
         while (isMotorHoming()) ;    // wait for motor to home
-        //doMotorMove(4.5, true);     // move to home position
         doMotorMove(2.375, true);     // move to home position
 
         return true;
