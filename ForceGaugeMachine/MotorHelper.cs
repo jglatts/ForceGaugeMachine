@@ -190,7 +190,8 @@ class MotorHelper
 
     private void forceDeflectionWorker() { 
         double moves = totalDeflection / deflectionInterval;
-        int delay = (int)(testDelayInterval * 1000);
+        //int delay = (int)(testDelayInterval * 1000);
+        int delay = (int)(testDelayInterval * 100);
 
         // prompt user for backlash compensation
         if (!checkForBacklashCompensated())
@@ -220,6 +221,11 @@ class MotorHelper
             // do the interval delay and update GUI
             mainForm.updateCurrentPosition(deflectionInterval);
             for (int j = 0; j < delay; j++) {
+                if (token.IsCancellationRequested)
+                {
+                    Stop();
+                    return;
+                }
                 Thread.Sleep(1);
                 mainForm.updateProgressBar(1);
             }
