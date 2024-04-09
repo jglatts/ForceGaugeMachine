@@ -174,7 +174,8 @@ namespace ForceGaugeMachine
                 totalDeflection = Double.Parse(txtBoxTotalDeflection.Text);
                 deflectionInterval = Double.Parse(txtBoxDeflectionInterval.Text);
                 delayInterval = Double.Parse(txtBoxDelayInterval.Text);
-                progressBarTestInterval.Maximum = ((int)(delayInterval * 1000)) - 1;
+                //progressBarTestInterval.Maximum = ((int)(delayInterval * 1000)) - 1;
+                progressBarTestInterval.Maximum = ((int)(delayInterval * 100)) - 1;
                 progressBarTestInterval.Value = 0;
             }
             catch
