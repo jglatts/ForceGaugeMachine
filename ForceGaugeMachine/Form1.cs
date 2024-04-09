@@ -28,7 +28,26 @@ namespace ForceGaugeMachine
             txtBoxCurrentPos.ReadOnly = true;
             txtBoxDelayInterval.Text = "1.5";
             txtBoxCurrentPos.Text = "0.000";
+            setHelpButton();
             motorHelper.setTestDelayInterval(1.5);   
+        }
+
+        private void Form1_HelpButtonClicked(object sender, EventArgs e) 
+        {
+            string helpStr = "Automatic Force vs Deflection Machine\n\n";
+            helpStr += "Be sure to remove any backlash from the system before starting a test.\n";
+            helpStr += "To remove the backlash:\n";
+            helpStr += "    * Find the zero position with the connector and gauge assembly\n";
+            helpStr += "    * Move .03\" in the DOWN direction\n";
+            helpStr += "    * Manually move .03\" in the UP direction to remove backlash\n";
+            helpStr += "    * Begin test\n";
+            MessageBox.Show(helpStr, "Z-Axis Connector Company");
+        }
+
+
+        private void setHelpButton()
+        {
+            this.HelpButtonClicked += Form1_HelpButtonClicked;
         }
 
         private void btnOpenDevice_Click(object sender, EventArgs e)
@@ -178,7 +197,13 @@ namespace ForceGaugeMachine
 
         private void btnResetHome_Click(object sender, EventArgs e)
         {
+            currentPos = 0.0;
             txtBoxCurrentPos.Text = "0.000";
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

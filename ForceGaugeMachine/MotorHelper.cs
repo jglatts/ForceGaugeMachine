@@ -163,6 +163,12 @@ class MotorHelper
         return true;
     }
 
+    private bool checkForBacklashCompensated()
+    {
+        DialogResult dialogResult = MessageBox.Show("Has backlash been accounted for?", "Z-Axis Connector Company", MessageBoxButtons.YesNo);
+        return dialogResult == DialogResult.Yes;
+    }
+
     public void runForceDeflectionTest(double totalDeflection, double deflectionInterval, ForceGaugeMachine.Form1 mainForm) 
     {
         /*
@@ -184,6 +190,14 @@ class MotorHelper
     private void forceDeflectionWorker() { 
         double moves = totalDeflection / deflectionInterval;
         int delay = (int)(testDelayInterval * 1000);
+
+        if (!checkForBacklashCompensated())
+        {
+            MessageBox.Show("Please compensate for backlash.\n\nHit the \"?\" icon for more info.\n", "Z-Axis Connector Company");
+            Stop();
+            return;
+        }
+
         mainForm.updateCurrentPosition(0);
         Thread.Sleep(500); 
         for (int i = 0; i < (int)moves; i++) {
