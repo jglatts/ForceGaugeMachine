@@ -217,12 +217,13 @@ class MotorHelper
                 return;
             }
 
+            // do the interval delay and update GUI
             mainForm.updateCurrentPosition(deflectionInterval);
-            // do the interval delay and update progress bar
             for (int j = 0; j < delay; j++) {
                 Thread.Sleep(1);
                 mainForm.updateProgressBar(1);
             }
+            mainForm.clearProgBar();
         }
     }
 
