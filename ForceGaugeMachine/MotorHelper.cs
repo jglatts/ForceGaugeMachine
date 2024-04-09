@@ -207,11 +207,15 @@ class MotorHelper
             if (token.IsCancellationRequested)
             {
                 Stop();
+                mainForm.clearProgBar();
                 return;
             }
 
             if (!doMotorMove(deflectionInterval, false))
+            {
+                mainForm.clearProgBar();
                 return;
+            }
 
             mainForm.updateCurrentPosition(deflectionInterval);
             // do the interval delay and update progress bar

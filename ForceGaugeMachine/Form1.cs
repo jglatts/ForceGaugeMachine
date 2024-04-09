@@ -20,6 +20,7 @@ namespace ForceGaugeMachine
         private double currentPos;
         delegate void SetTextCallback(double pos);
         delegate void SetTextCallbackDelay(int value);
+        delegate void SetTextCallbackClear();
 
         public Form1()
         {
@@ -146,6 +147,20 @@ namespace ForceGaugeMachine
         private void btnEndTest_Click(object sender, EventArgs e)
         {
             motorHelper.stopMotor();
+            clearProgBar();
+        }
+
+        public void clearProgBar()
+        {
+            if (this.progressBarTestInterval.InvokeRequired)
+            {
+                SetTextCallbackClear d = new SetTextCallbackClear(clearProgBar);
+                this.Invoke(d);
+            }
+            else
+            {
+                progressBarTestInterval.Value = 0;
+            }
         }
 
         private void btnRunDeflectionTest_Click(object sender, EventArgs e)
@@ -186,8 +201,15 @@ namespace ForceGaugeMachine
             }
             else
             {
-                int previous = progressBarTestInterval.Value;
-                progressBarTestInterval.Value = previous + value;
+                if (value == 0)
+                {
+                    progressBarTestInterval.Value = 0;
+                }
+                else
+                {
+                    int previous = progressBarTestInterval.Value;
+                    progressBarTestInterval.Value = previous + value;
+                }
             }
 
         }
