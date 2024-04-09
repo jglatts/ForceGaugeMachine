@@ -19,6 +19,7 @@ namespace ForceGaugeMachine
         private MotorHelper motorHelper;
         private double currentPos;
         delegate void SetTextCallback(double pos);
+        delegate void SetTextCallbackDelay(int value);
 
         public Form1()
         {
@@ -158,6 +159,8 @@ namespace ForceGaugeMachine
                 totalDeflection = Double.Parse(txtBoxTotalDeflection.Text);
                 deflectionInterval = Double.Parse(txtBoxDeflectionInterval.Text);
                 delayInterval = Double.Parse(txtBoxDelayInterval.Text);
+                progressBarTestInterval.Maximum = (int)(delayInterval * 1000);
+                progressBarTestInterval.Value = 0;
             }
             catch
             {
@@ -172,6 +175,21 @@ namespace ForceGaugeMachine
 
             motorHelper.setTestDelayInterval(delayInterval);
             motorHelper.runForceDeflectionTest(totalDeflection, deflectionInterval, this);
+        }
+
+        public void updateProgressBar(int value)
+        {
+            if (this.progressBarTestInterval.InvokeRequired)
+            {
+                SetTextCallbackDelay d = new SetTextCallbackDelay(updateProgressBar);
+                this.Invoke(d, new object[] { value });
+            }
+            else
+            {
+                int previous = progressBarTestInterval.Value;
+                progressBarTestInterval.Value = previous + value;
+            }
+
         }
 
         private bool checkUserInput(double delayInterval, double deflectionInterval, double totalDeflection) {

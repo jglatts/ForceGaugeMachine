@@ -5,6 +5,7 @@
  *  Date:      11/15/23
  *  Author:    John Glatts
  */
+using System.Reflection.Metadata.Ecma335;
 using static UC100;
 
 class MotorHelper
@@ -191,6 +192,7 @@ class MotorHelper
         double moves = totalDeflection / deflectionInterval;
         int delay = (int)(testDelayInterval * 1000);
 
+        // prompt user for backlash compensation
         if (!checkForBacklashCompensated())
         {
             MessageBox.Show("Please compensate for backlash.\n\nHit the \"?\" icon for more info.\n", "Z-Axis Connector Company");
@@ -198,6 +200,7 @@ class MotorHelper
             return;
         }
 
+        // do the stepper moves
         mainForm.updateCurrentPosition(0);
         Thread.Sleep(500); 
         for (int i = 0; i < (int)moves; i++) {
@@ -206,9 +209,16 @@ class MotorHelper
                 Stop();
                 return;
             }
-            doMotorMove(deflectionInterval, false);
+
+            if (!doMotorMove(deflectionInterval, false))
+                return;
+
             mainForm.updateCurrentPosition(deflectionInterval);
-            Thread.Sleep(delay); // wait for test
+            // do the interval delay and update progress bar
+            for (int j = 0; j < delay; j++) {
+                Thread.Sleep(1);
+                mainForm.updateProgressBar(1);
+            }
         }
     }
 
@@ -348,14 +358,15 @@ class MotorHelper
         return Open(1) == (int)ReturnVal.UC100_OK;
     }
 
-    public void doMotorMove(double steps, bool dir)
+    public bool doMotorMove(double steps, bool dir)
     {
         int ret = AddLinearMoveRel(0, steps, 1, speed, dir);
         if (ret != (int)ReturnVal.UC100_OK)
         {
             MessageBox.Show(helpStr, "Z-Axis Connector Company");
-            return;
+            return false;
         }
+        return true;
     }
 
     public void stopMotor()

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnOpenDevice = new System.Windows.Forms.Button();
@@ -45,6 +46,7 @@
             this.btnMoveQuartInchLeft = new System.Windows.Forms.Button();
             this.btnMoveHalfInchLeft = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.progressBarTestInterval = new System.Windows.Forms.ProgressBar();
             this.label6 = new System.Windows.Forms.Label();
             this.txtBoxDelayInterval = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -55,6 +57,7 @@
             this.txtBoxDeflectionInterval = new System.Windows.Forms.TextBox();
             this.txtBoxTotalDeflection = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -231,6 +234,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.progressBarTestInterval);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.txtBoxDelayInterval);
             this.groupBox3.Controls.Add(this.label5);
@@ -241,18 +246,25 @@
             this.groupBox3.Controls.Add(this.txtBoxDeflectionInterval);
             this.groupBox3.Controls.Add(this.txtBoxTotalDeflection);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Location = new System.Drawing.Point(658, 164);
+            this.groupBox3.Location = new System.Drawing.Point(552, 164);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(447, 419);
+            this.groupBox3.Size = new System.Drawing.Size(553, 484);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Force vs Deflection Test";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
+            // progressBarTestInterval
+            // 
+            this.progressBarTestInterval.Location = new System.Drawing.Point(65, 284);
+            this.progressBarTestInterval.Name = "progressBarTestInterval";
+            this.progressBarTestInterval.Size = new System.Drawing.Size(450, 34);
+            this.progressBarTestInterval.TabIndex = 23;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(38, 164);
+            this.label6.Location = new System.Drawing.Point(82, 164);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(143, 25);
             this.label6.TabIndex = 22;
@@ -260,7 +272,7 @@
             // 
             // txtBoxDelayInterval
             // 
-            this.txtBoxDelayInterval.Location = new System.Drawing.Point(199, 158);
+            this.txtBoxDelayInterval.Location = new System.Drawing.Point(243, 158);
             this.txtBoxDelayInterval.Name = "txtBoxDelayInterval";
             this.txtBoxDelayInterval.Size = new System.Drawing.Size(191, 31);
             this.txtBoxDelayInterval.TabIndex = 21;
@@ -268,7 +280,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(55, 219);
+            this.label5.Location = new System.Drawing.Point(99, 219);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(138, 25);
             this.label5.TabIndex = 20;
@@ -276,14 +288,14 @@
             // 
             // txtBoxCurrentPos
             // 
-            this.txtBoxCurrentPos.Location = new System.Drawing.Point(199, 216);
+            this.txtBoxCurrentPos.Location = new System.Drawing.Point(243, 216);
             this.txtBoxCurrentPos.Name = "txtBoxCurrentPos";
             this.txtBoxCurrentPos.Size = new System.Drawing.Size(191, 31);
             this.txtBoxCurrentPos.TabIndex = 19;
             // 
             // btnEndTest
             // 
-            this.btnEndTest.Location = new System.Drawing.Point(121, 352);
+            this.btnEndTest.Location = new System.Drawing.Point(174, 435);
             this.btnEndTest.Name = "btnEndTest";
             this.btnEndTest.Size = new System.Drawing.Size(219, 34);
             this.btnEndTest.TabIndex = 18;
@@ -293,7 +305,7 @@
             // 
             // btnRunDeflectionTest
             // 
-            this.btnRunDeflectionTest.Location = new System.Drawing.Point(121, 291);
+            this.btnRunDeflectionTest.Location = new System.Drawing.Point(174, 374);
             this.btnRunDeflectionTest.Name = "btnRunDeflectionTest";
             this.btnRunDeflectionTest.Size = new System.Drawing.Size(219, 55);
             this.btnRunDeflectionTest.TabIndex = 17;
@@ -304,7 +316,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(38, 112);
+            this.label4.Location = new System.Drawing.Point(82, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(155, 25);
             this.label4.TabIndex = 3;
@@ -312,7 +324,7 @@
             // 
             // txtBoxDeflectionInterval
             // 
-            this.txtBoxDeflectionInterval.Location = new System.Drawing.Point(199, 109);
+            this.txtBoxDeflectionInterval.Location = new System.Drawing.Point(243, 109);
             this.txtBoxDeflectionInterval.Name = "txtBoxDeflectionInterval";
             this.txtBoxDeflectionInterval.Size = new System.Drawing.Size(191, 31);
             this.txtBoxDeflectionInterval.TabIndex = 2;
@@ -320,7 +332,7 @@
             // 
             // txtBoxTotalDeflection
             // 
-            this.txtBoxTotalDeflection.Location = new System.Drawing.Point(199, 62);
+            this.txtBoxTotalDeflection.Location = new System.Drawing.Point(243, 62);
             this.txtBoxTotalDeflection.Name = "txtBoxTotalDeflection";
             this.txtBoxTotalDeflection.Size = new System.Drawing.Size(191, 31);
             this.txtBoxTotalDeflection.TabIndex = 1;
@@ -328,11 +340,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(49, 65);
+            this.label3.Location = new System.Drawing.Point(93, 65);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(134, 25);
             this.label3.TabIndex = 0;
             this.label3.Text = "Total Deflection";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(218, 321);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(167, 25);
+            this.label7.TabIndex = 24;
+            this.label7.Text = "Delay Time Counter";
             // 
             // Form1
             // 
@@ -346,6 +367,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.HelpButton = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
@@ -389,5 +411,7 @@
         private TextBox txtBoxCurrentPos;
         private Label label6;
         private TextBox txtBoxDelayInterval;
+        private ProgressBar progressBarTestInterval;
+        private Label label7;
     }
 }
