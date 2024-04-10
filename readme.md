@@ -1,5 +1,3 @@
-# Automated Force vs. Deflection Machine
-
 ## Automated Force vs. Deflection Machine 
 ### _Developed For Z-Axis Connector Company_
 
