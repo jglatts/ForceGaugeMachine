@@ -1,7 +1,7 @@
 # Automated Force vs. Deflection Machine
 
 ## Automated Force vs. Deflection Machine 
-### Developed For Z-Axis Connector Company
+### _Developed For Z-Axis Connector Company_
 
 ### Features
 * Smooth motor control
