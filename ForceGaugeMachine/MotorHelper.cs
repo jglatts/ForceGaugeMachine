@@ -48,7 +48,6 @@ class MotorHelper
         dirXPin = 3;
         enaXPin = 5;
         xHomePin = 0;            // right limit switch
-        //xStepsPerUnit = 8000;
         xStepsPerUnit = 10724;
         isConnected = false;
     }
@@ -211,26 +210,33 @@ class MotorHelper
             if (!doMotorMove(deflectionInterval, false))
             {
                 mainForm.clearProgBar();
-                MessageBox.Show("motormove failed in forceDeflectionWorker() thread");
                 return;
             }
 
-            // do the interval delay and update GUI
-            mainForm.updateCurrentPosition(deflectionInterval);
-            for (int j = 0; j < delay; j++) {
-                if (checkForTokenStop())
-                {
-                    return;
-                }
-                else
-                {
-                    Thread.Sleep(1);
-                    mainForm.updateProgressBar(1);
-                }
-            }
-            Thread.Sleep(500);  // must be here for full progrbar
-            mainForm.clearProgBar();
+            if (!workerDelayInterval(delay))
+                return;
         }
+    }
+
+    private bool workerDelayInterval(int delay)
+    {
+        // do the interval delay and update GUI
+        mainForm.updateCurrentPosition(deflectionInterval);
+        for (int j = 0; j < delay; j++)
+        {
+            if (checkForTokenStop())
+            {
+                return false;
+            }
+            else
+            {
+                Thread.Sleep(1);
+                mainForm.updateProgressBar(1);
+            }
+        }
+        Thread.Sleep(500);  // delay is needed to see the progressbar get to maxvalue
+        mainForm.clearProgBar();
+        return true;
     }
 
     private bool checkForTokenStop()
@@ -340,7 +346,6 @@ class MotorHelper
      */
     public bool resetHome()
     {
-        // bad impl. cant hit STOP here, blocks
         int ret = HomeOn(0, 1.0, 0.25, true);
 
         if (ret == (int)ReturnVal.UC100_MOVEMENT_IN_PROGRESS)
@@ -405,6 +410,7 @@ class MotorHelper
             {
                 MessageBox.Show(helpStr, "Z-Axis Connector Company");
             }
+            mainForm.clearProgBar();
         }
         catch (Exception ex) { }
     }
