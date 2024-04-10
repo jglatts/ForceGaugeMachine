@@ -11,4 +11,8 @@
 * Delay interval progress bar
 
 
+### GUI Screenshot
 ![alt text](https://github.com/jglatts/ForceGaugeMachine/blob/master/scr-shot.png)
+
+### Hardware Screenshot
+![alt text](https://github.com/jglatts/ForceGaugeMachine/blob/master/force-gauge-setup.JPG)
