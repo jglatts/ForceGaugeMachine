@@ -1,11 +1,5 @@
 /**
  *  Automated Force vs Deflection Machine
- *  
- *  left down
- *  right UP
- *  
- *  ToDo:
- *      - implement current pos txtbox to keep track of where we are
  *                      
  *  Copyright: Z-Axis Connector Company
  *  Date:      2/22/24
