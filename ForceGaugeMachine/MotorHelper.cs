@@ -391,7 +391,7 @@ class MotorHelper
         if (ret != (int)ReturnVal.UC100_OK)
         {
             MessageBox.Show(helpStr, "Z-Axis Connector Company");
-            return false;
+            //return false;
         }
         return true;
     }
