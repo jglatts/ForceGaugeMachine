@@ -190,8 +190,8 @@ class MotorHelper
 
     private void forceDeflectionWorker() { 
         double moves = totalDeflection / deflectionInterval;
-        //int delay = (int)(testDelayInterval * 1000);
         int delay = (int)(testDelayInterval * 100);
+        //int delay = (int)(testDelayInterval * 1000);
 
         // prompt user for backlash compensation
         if (!checkForBacklashCompensated())
@@ -205,32 +205,43 @@ class MotorHelper
         mainForm.updateCurrentPosition(0);
         Thread.Sleep(500); 
         for (int i = 0; i < (int)moves; i++) {
-            if (token.IsCancellationRequested)
-            {
-                Stop();
-                mainForm.clearProgBar();
+            if (checkForTokenStop())
                 return;
-            }
 
             if (!doMotorMove(deflectionInterval, false))
             {
                 mainForm.clearProgBar();
+                MessageBox.Show("motormove failed in forceDeflectionWorker() thread");
                 return;
             }
 
             // do the interval delay and update GUI
             mainForm.updateCurrentPosition(deflectionInterval);
             for (int j = 0; j < delay; j++) {
-                if (token.IsCancellationRequested)
+                if (checkForTokenStop())
                 {
-                    Stop();
                     return;
                 }
-                Thread.Sleep(1);
-                mainForm.updateProgressBar(1);
+                else
+                {
+                    Thread.Sleep(1);
+                    mainForm.updateProgressBar(1);
+                }
             }
+            Thread.Sleep(500);  // must be here for full progrbar
             mainForm.clearProgBar();
         }
+    }
+
+    private bool checkForTokenStop()
+    {
+        if (token.IsCancellationRequested)
+        {
+            Stop();
+            mainForm.clearProgBar();
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -174,8 +174,8 @@ namespace ForceGaugeMachine
                 totalDeflection = Double.Parse(txtBoxTotalDeflection.Text);
                 deflectionInterval = Double.Parse(txtBoxDeflectionInterval.Text);
                 delayInterval = Double.Parse(txtBoxDelayInterval.Text);
-                //progressBarTestInterval.Maximum = ((int)(delayInterval * 1000)) - 1;
-                progressBarTestInterval.Maximum = ((int)(delayInterval * 100)) - 1;
+                progressBarTestInterval.Maximum = ((int)(delayInterval * 100));
+                progressBarTestInterval.Step = 1;
                 progressBarTestInterval.Value = 0;
             }
             catch
@@ -202,17 +202,11 @@ namespace ForceGaugeMachine
             }
             else
             {
-                if (value == 0)
-                {
-                    progressBarTestInterval.Value = 0;
-                }
-                else
-                {
-                    int previous = progressBarTestInterval.Value;
-                    progressBarTestInterval.Value = previous + value;
-                }
+                int previous = progressBarTestInterval.Value;
+                progressBarTestInterval.Value = previous + value;
+                return;
+                //sMessageBox.Show("val " + progressBarTestInterval.Value + "\ncomp: " + (previous + value));
             }
-
         }
 
         private bool checkUserInput(double delayInterval, double deflectionInterval, double totalDeflection) {
