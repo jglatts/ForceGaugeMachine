@@ -130,7 +130,7 @@ namespace ForceGaugeMachine
 
         private void btnStopMotor_Click(object sender, EventArgs e)
         {
-            motorHelper.stopMotor();
+            motorHelper.stopMotor(this);
         }
 
         private void groupBox3_Enter(object sender, EventArgs e)
@@ -140,21 +140,25 @@ namespace ForceGaugeMachine
 
         private void btnEndTest_Click(object sender, EventArgs e)
         {
-            motorHelper.stopMotor();
+            motorHelper.stopMotor(this);
             clearProgBar();
         }
 
         public void clearProgBar()
         {
-            if (this.progressBarTestInterval.InvokeRequired)
+            try
             {
-                SetTextCallbackClear d = new SetTextCallbackClear(clearProgBar);
-                this.Invoke(d);
+                if (this.progressBarTestInterval.InvokeRequired)
+                {
+                    SetTextCallbackClear d = new SetTextCallbackClear(clearProgBar);
+                    this.Invoke(d);
+                }
+                else
+                {
+                    progressBarTestInterval.Value = 0;
+                }
             }
-            else
-            {
-                progressBarTestInterval.Value = 0;
-            }
+            catch(Exception ex) { }
         }
 
         private void btnRunDeflectionTest_Click(object sender, EventArgs e)

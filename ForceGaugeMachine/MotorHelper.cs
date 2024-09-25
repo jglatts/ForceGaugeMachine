@@ -5,6 +5,7 @@
  *  Date:      11/15/23
  *  Author:    John Glatts
  */
+using ForceGaugeMachine;
 using System.Reflection.Metadata.Ecma335;
 using static UC100;
 
@@ -396,7 +397,7 @@ class MotorHelper
         return true;
     }
 
-    public void stopMotor()
+    public void stopMotor(Form1 mainForm)
     {
         try
         {
@@ -410,7 +411,10 @@ class MotorHelper
             {
                 MessageBox.Show(helpStr, "Z-Axis Connector Company");
             }
+            // error here
+            // if stop is hit before a test is run
             mainForm.clearProgBar();
+
         }
         catch (Exception ex) { }
     }
