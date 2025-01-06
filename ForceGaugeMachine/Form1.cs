@@ -167,16 +167,9 @@ namespace ForceGaugeMachine
             double deflectionInterval = 0;
             double delayInterval = 0;
 
-            try 
-            {
-                totalDeflection = Double.Parse(txtBoxTotalDeflection.Text);
-                deflectionInterval = Double.Parse(txtBoxDeflectionInterval.Text);
-                delayInterval = Double.Parse(txtBoxDelayInterval.Text);
-                progressBarTestInterval.Maximum = ((int)(delayInterval * 100));
-                progressBarTestInterval.Step = 1;
-                progressBarTestInterval.Value = 0;
-            }
-            catch
+            if (!Double.TryParse(txtBoxTotalDeflection.Text, out totalDeflection) ||
+                !Double.TryParse(txtBoxDeflectionInterval.Text, out deflectionInterval) ||
+                !Double.TryParse(txtBoxDelayInterval.Text, out delayInterval))
             {
                 MessageBox.Show("error with data!", "Z-Axis Connector Company");
                 return;
@@ -187,6 +180,9 @@ namespace ForceGaugeMachine
                 return;
             }
 
+            progressBarTestInterval.Maximum = ((int)(delayInterval * 100));
+            progressBarTestInterval.Step = 1;
+            progressBarTestInterval.Value = 0;
             motorHelper.setTestDelayInterval(delayInterval);
             motorHelper.runForceDeflectionTest(totalDeflection, deflectionInterval, this);
         }
@@ -235,6 +231,11 @@ namespace ForceGaugeMachine
         }
 
         private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
         {
 
         }
