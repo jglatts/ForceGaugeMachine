@@ -7,6 +7,7 @@
 * Windows 10/11 compatibility :sunglasses: :sunglasses:
 * Home position functions
 * Safe multi-threaded deflection algorithim
+* Pause and Resume test functions 
 * Serial comms. with force gauge for real time data
 * Delay interval progress bar
 

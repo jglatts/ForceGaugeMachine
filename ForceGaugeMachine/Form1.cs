@@ -259,8 +259,8 @@ namespace ForceGaugeMachine
         {
             if (isPaused) 
             {
-                isPaused = false;
                 testActive = true;
+                isPaused = false;
                 btnPauseTest.Text = "Pause Test";
 
             }

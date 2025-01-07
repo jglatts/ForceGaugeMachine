@@ -177,13 +177,6 @@ class MotorHelper
 
     public void runForceDeflectionTest(double totalDeflection, double deflectionInterval, ForceGaugeMachine.Form1 mainForm) 
     {
-        /*
-        if (!isConnected)
-        {
-            MessageBox.Show(helpStr, "Z-Axis Connector Company");
-            return;
-        }
-        */
         cancelTokenSource = new CancellationTokenSource();
         token = cancelTokenSource.Token;
         this.totalDeflection = totalDeflection;
