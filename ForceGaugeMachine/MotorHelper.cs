@@ -37,6 +37,11 @@ class MotorHelper
         setHelpStr();
     }
 
+    public MotorHelper(ForceGaugeMachine.Form1 mainForm) : this() 
+    {
+        this.mainForm = mainForm;
+    }
+
     /**
      *  Set the needed motor variables/pins
      */

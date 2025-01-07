@@ -21,7 +21,7 @@ namespace ForceGaugeMachine
         public Form1()
         {
             InitializeComponent();
-            motorHelper = new MotorHelper();
+            motorHelper = new MotorHelper(this);
             currentPos = 0.0;
             txtBoxCurrentPos.ReadOnly = true;
             txtBoxDelayInterval.Text = "1.5";
@@ -260,6 +260,9 @@ namespace ForceGaugeMachine
             if (isPaused) 
             {
                 isPaused = false;
+                testActive = true;
+                btnPauseTest.Text = "Pause Test";
+
             }
             else if (testActive) 
             {
