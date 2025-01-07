@@ -45,6 +45,7 @@
             this.btnMoveQuartInchLeft = new System.Windows.Forms.Button();
             this.btnMoveHalfInchLeft = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnPauseTest = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.progressBarTestInterval = new System.Windows.Forms.ProgressBar();
             this.label6 = new System.Windows.Forms.Label();
@@ -233,6 +234,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnPauseTest);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.progressBarTestInterval);
             this.groupBox3.Controls.Add(this.label6);
@@ -252,6 +254,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Force vs Deflection Test";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // btnPauseTest
+            // 
+            this.btnPauseTest.Location = new System.Drawing.Point(166, 452);
+            this.btnPauseTest.Name = "btnPauseTest";
+            this.btnPauseTest.Size = new System.Drawing.Size(219, 34);
+            this.btnPauseTest.TabIndex = 25;
+            this.btnPauseTest.Text = "Pause Test";
+            this.btnPauseTest.UseVisualStyleBackColor = true;
+            this.btnPauseTest.Click += new System.EventHandler(this.btnPauseTest_Click);
             // 
             // label7
             // 
@@ -304,7 +316,7 @@
             // 
             // btnEndTest
             // 
-            this.btnEndTest.Location = new System.Drawing.Point(166, 448);
+            this.btnEndTest.Location = new System.Drawing.Point(166, 497);
             this.btnEndTest.Name = "btnEndTest";
             this.btnEndTest.Size = new System.Drawing.Size(219, 34);
             this.btnEndTest.TabIndex = 18;
@@ -412,5 +424,6 @@
         private TextBox txtBoxDelayInterval;
         private ProgressBar progressBarTestInterval;
         private Label label7;
+        private Button btnPauseTest;
     }
 }

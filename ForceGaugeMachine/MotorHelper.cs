@@ -198,25 +198,32 @@ class MotorHelper
         {
             MessageBox.Show("Please compensate for backlash.\n\nHit the \"?\" icon for more info.\n", "Z-Axis Connector Company");
             Stop();
+            mainForm.setTestState(false);
             return;
         }
 
         // do the stepper moves
         mainForm.updateCurrentPosition(0);
-        Thread.Sleep(500); 
+        Thread.Sleep(500);
         for (int i = 0; i < (int)moves; i++) {
             if (checkForTokenStop())
-                return;
-
+                break;
+            
             if (!doMotorMove(deflectionInterval, false))
             {
                 mainForm.clearProgBar();
-                return;
+                break;
             }
 
             if (!workerDelayInterval(delay))
-                return;
+                break;
         }
+        mainForm.setTestState(false);
+    }
+
+    private void checkForTestPause()
+    {
+        while (mainForm.getPaused()) { }
     }
 
     private bool workerDelayInterval(int delay)
@@ -225,6 +232,7 @@ class MotorHelper
         mainForm.updateCurrentPosition(deflectionInterval);
         for (int j = 0; j < delay; j++)
         {
+            checkForTestPause();
             if (checkForTokenStop())
             {
                 return false;
@@ -242,6 +250,7 @@ class MotorHelper
 
     private bool checkForTokenStop()
     {
+        checkForTestPause();
         if (token.IsCancellationRequested)
         {
             Stop();
@@ -388,6 +397,7 @@ class MotorHelper
 
     public bool doMotorMove(double steps, bool dir)
     {
+        checkForTestPause();
         int ret = AddLinearMoveRel(0, steps, 1, speed, dir);
         if (ret != (int)ReturnVal.UC100_OK)
         {

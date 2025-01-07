@@ -12,6 +12,8 @@ namespace ForceGaugeMachine
 
         private MotorHelper motorHelper;
         private double currentPos;
+        private bool isPaused;
+        private bool testActive;
         delegate void SetTextCallback(double pos);
         delegate void SetTextCallbackDelay(int value);
         delegate void SetTextCallbackClear();
@@ -24,6 +26,8 @@ namespace ForceGaugeMachine
             txtBoxCurrentPos.ReadOnly = true;
             txtBoxDelayInterval.Text = "1.5";
             txtBoxCurrentPos.Text = "0.000";
+            isPaused = false;
+            testActive = false;
             setHelpButton();
             motorHelper.setTestDelayInterval(1.5);   
         }
@@ -184,7 +188,18 @@ namespace ForceGaugeMachine
             progressBarTestInterval.Step = 1;
             progressBarTestInterval.Value = 0;
             motorHelper.setTestDelayInterval(delayInterval);
+            testActive = true;
             motorHelper.runForceDeflectionTest(totalDeflection, deflectionInterval, this);
+        }
+
+        public void setTestState(bool isActive)
+        { 
+            testActive = isActive; 
+        }
+         
+        public bool getPaused()
+        {
+            return isPaused;
         }
 
         public void updateProgressBar(int value)
@@ -238,6 +253,20 @@ namespace ForceGaugeMachine
         private void label5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnPauseTest_Click(object sender, EventArgs e)
+        {
+            if (isPaused) 
+            {
+                isPaused = false;
+            }
+            else if (testActive) 
+            {
+                testActive = false;
+                isPaused = true;
+                btnPauseTest.Text = "Resume Test";
+            }
         }
     }
 }
