@@ -218,7 +218,7 @@ class MotorHelper
         }
         mainForm.setTestState(false);
     }
-
+    
     private void checkForTestPause()
     {
         while (mainForm.getPaused()) { }

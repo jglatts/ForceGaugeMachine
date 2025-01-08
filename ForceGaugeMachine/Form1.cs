@@ -14,6 +14,7 @@ namespace ForceGaugeMachine
         private double currentPos;
         private bool isPaused;
         private bool testActive;
+        public ManualResetEvent mre;
         delegate void SetTextCallback(double pos);
         delegate void SetTextCallbackDelay(int value);
         delegate void SetTextCallbackClear();
@@ -21,6 +22,7 @@ namespace ForceGaugeMachine
         public Form1()
         {
             InitializeComponent();
+            mre = new ManualResetEvent(true);
             motorHelper = new MotorHelper(this);
             currentPos = 0.0;
             txtBoxCurrentPos.ReadOnly = true;
@@ -146,6 +148,8 @@ namespace ForceGaugeMachine
         {
             motorHelper.stopMotor(this);
             clearProgBar();
+            isPaused = false;
+            testActive = false;
         }
 
         public void clearProgBar()
